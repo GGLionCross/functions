@@ -1799,6 +1799,13 @@
   dependencies:
     vue-demi "^0.9.1"
 
+"@vuelidate/validators@^2.0.0-alpha.18":
+  version "2.0.0-alpha.18"
+  resolved "https://registry.yarnpkg.com/@vuelidate/validators/-/validators-2.0.0-alpha.18.tgz#4e6008ed6d098f9a1ffd20b4fc06730c1cbc24fb"
+  integrity sha512-JLH5uoynR6lLzmzGjb6sqxmDng1BB+FUpoKb38BNqUheM7ZMJeetZVZ9T/PUL5K8btLgoEqrPHL+SWHrOwIm7w==
+  dependencies:
+    vue-demi "^0.9.1"
+
 "@webassemblyjs/ast@1.11.1":
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.11.1.tgz#2bfd767eae1a6996f432ff7e8d7fc75679c0b6a7"
