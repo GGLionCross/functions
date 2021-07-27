@@ -11,10 +11,10 @@ const routes = [
         }
       },
       {
-        path: 'pdf-to-jpg',
-        component: () => import('pages/PdfToJpg.vue'),
+        path: 'image-hosting',
+        component: () => import('pages/ImageHosting.vue'),
         meta: {
-          title: 'PDF to JPG'
+          title: 'Image Hosting'
         }
       }
     ]

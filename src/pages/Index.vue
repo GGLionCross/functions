@@ -2,9 +2,9 @@
   <q-page class="flex flex-center">
     <q-btn
       color="primary"
-      @click="goTo('pdf-to-jpg')"
+      @click="goTo('image-hosting')"
     >
-      Split PDF Into JPG Images
+      Image Hosting
     </q-btn>
   </q-page>
 </template>
