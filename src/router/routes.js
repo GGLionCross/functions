@@ -1,10 +1,22 @@
-
 const routes = [
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue') }
+      {
+        path: '',
+        component: () => import('pages/Index.vue'),
+        meta: {
+          title: 'Functions'
+        }
+      },
+      {
+        path: 'pdf-to-jpg',
+        component: () => import('pages/PdfToJpg.vue'),
+        meta: {
+          title: 'PDF to JPG'
+        }
+      }
     ]
   },
 

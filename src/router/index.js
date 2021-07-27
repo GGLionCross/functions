@@ -1,5 +1,10 @@
 import { route } from 'quasar/wrappers'
-import { createRouter, createMemoryHistory, createWebHistory, createWebHashHistory } from 'vue-router'
+import {
+  createRouter,
+  createMemoryHistory,
+  createWebHistory,
+  createWebHashHistory
+} from 'vue-router'
 import routes from './routes'
 
 /*
@@ -25,6 +30,13 @@ export default route(function (/* { store, ssrContext } */) {
     // quasar.conf.js -> build -> publicPath
     history: createHistory(process.env.MODE === 'ssr' ? void 0 : process.env.VUE_ROUTER_BASE)
   })
+
+  Router.beforeEach((to, from) => {
+    // Set Title
+    if (to.meta && to.meta.title) {
+      document.title = to.meta.title;
+    }
+  });
 
   return Router
 })

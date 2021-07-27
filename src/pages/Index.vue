@@ -1,17 +1,27 @@
 <template>
   <q-page class="flex flex-center">
-    <img
-      alt="Quasar logo"
-      src="~assets/quasar-logo-vertical.svg"
-      style="width: 200px; height: 200px"
+    <q-btn
+      color="primary"
+      @click="goTo('pdf-to-jpg')"
     >
+      Split PDF Into JPG Images
+    </q-btn>
   </q-page>
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import { defineComponent } from "vue";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
-  name: 'PageIndex'
-})
+  setup() {
+    const router = useRouter();
+    function goTo(path) {
+      router.push({
+        path
+      });
+    }
+    return { goTo };
+  }
+});
 </script>
