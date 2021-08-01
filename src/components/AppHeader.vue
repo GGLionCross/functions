@@ -21,6 +21,7 @@
           dense
           flat
           round
+          @click="logout"
         ></q-btn>
       </div>
       <!-- <q-btn
@@ -58,12 +59,16 @@ export default defineComponent({
 
     const store = useStore();
     const isUserLoggedIn = computed(() => store.getters.isUserLoggedIn);
+    function logout() {
+      store.dispatch("userLogout");
+    }
 
     return {
       showBackButton,
       goBack,
       toggleDrawer,
-      isUserLoggedIn
+      isUserLoggedIn,
+      logout
     }
   }
 });

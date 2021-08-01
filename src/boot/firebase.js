@@ -23,5 +23,6 @@ var firebaseConfig = {
 let firebaseApp = firebase.initializeApp(firebaseConfig);
 let firebaseAuth = firebaseApp.auth();
 let firebaseDb = firebaseApp.database();
+let pGoogle = new firebase.auth.GoogleAuthProvider();
 
-export { firebaseAuth, firebaseDb };
+export { firebaseAuth, firebaseDb, pGoogle };

@@ -1,4 +1,4 @@
-import { firebaseAuth, firebaseDb } from "src/boot/firebase";
+import { firebaseAuth, firebaseDb, pGoogle } from "src/boot/firebase";
 import { Notify } from "quasar";
 
 export function handleAuthStateChanged({ commit, dispatch }) {
@@ -23,42 +23,16 @@ export function handleAuthStateChanged({ commit, dispatch }) {
   });
 }
 export function userLogin({}, payload) {
-  firebaseAuth.signInWithEmailAndPassword(payload.email, payload.password)
-    .then(response => {
-      console.log(response);
+  firebaseAuth.signInWithPopup(pGoogle)
+    .then((result) => {
+
     })
-    .catch(error => {
-      // console.error(error);
-      let notifyObj = { type: "negative" }
-      switch(error.code) {
-        case "auth/user-not-found":
-          notifyObj.message = "Unregistered email";
-          break;
-        case "auth/wrong-password":
-          notifyObj.message = "Incorrect password";
-          break;
-        default:
-          notifyObj.message = error.message;
-      }
+    .catch((error) => {
+      console.error(error);
+      let notifyObj = { type: "negative", message: error.message }
       Notify.create(notifyObj);
     });
 }
 export function userLogout({}, payload) {
   firebaseAuth.signOut();
-}
-export function userRegister({}, payload) {
-  firebaseAuth.createUserWithEmailAndPassword(payload.email, payload.password)
-    .then(response => {
-      console.log(response);
-      const userId = firebaseAuth.currentUser.uid;
-      firebaseDb.ref("users/" + userId).set({
-        email: payload.email,
-        username: payload.username
-      });
-    })
-    .catch(error => {
-      console.error(error.message);
-      let notifyObj = { type: "negative", message: error.message }
-      Notify.create(notifyObj);
-    });
 }

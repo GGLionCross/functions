@@ -1,7 +1,7 @@
 <template>
-  <q-page>
+  <q-page class="flex flex-center">
     <div v-if="!isUserLoggedIn" class="row justify-center q-pa-md">
-      <login-register></login-register>
+      <sign-in></sign-in>
     </div>
     <div v-else>
       <q-btn
@@ -18,10 +18,10 @@
 import { computed, defineComponent } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-import LoginRegister from "components/LoginRegister.vue";
+import SignIn from "src/components/SignIn.vue";
 
 export default defineComponent({
-  components: { LoginRegister },
+  components: { SignIn },
   setup() {
     const router = useRouter();
     function goTo(path) {
