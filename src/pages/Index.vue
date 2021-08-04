@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex flex-center">
     <div v-if="!isUserLoggedIn" class="row justify-center q-pa-md">
-      <sign-in></sign-in>
+      <sign-in-with-google />
     </div>
     <div v-else>
       <q-btn
@@ -18,10 +18,10 @@
 import { computed, defineComponent } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-import SignIn from "src/components/SignIn.vue";
+import SignInWithGoogle from "src/components/SignInWithGoogle.vue";
 
 export default defineComponent({
-  components: { SignIn },
+  components: { SignInWithGoogle },
   setup() {
     const router = useRouter();
     function goTo(path) {

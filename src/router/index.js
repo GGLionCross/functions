@@ -6,6 +6,7 @@ import {
   createWebHashHistory
 } from "vue-router";
 import routes from "./routes";
+import { getCurrentUser } from "src/boot/firebase";
 
 /*
  * If not building with SSR mode, you can
@@ -31,10 +32,22 @@ export default route(function (/* { store, ssrContext } */) {
     history: createHistory(process.env.MODE === 'ssr' ? void 0 : process.env.VUE_ROUTER_BASE)
   });
 
-  Router.beforeEach((to, from) => {
+  Router.beforeEach(async (to, from, next) => {
     // Set Title
     if (to.meta && to.meta.title) {
       document.title = to.meta.title;
+    }
+
+    // This allows setting meta.requiresAuth in routes.js to prevent
+    //   people from accessing certain routes without first signing in.
+    //   Instead, they will be redirected back to Index.vue which will
+    //   only show the SignInWithGoogle component until a user is signed in.
+    const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+    const currentUser = await getCurrentUser();
+    if (requiresAuth && !currentUser) {
+      next({ path: "/" });
+    } else {
+      next();
     }
   });
 

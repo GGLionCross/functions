@@ -24,5 +24,13 @@ let firebaseApp = firebase.initializeApp(firebaseConfig);
 let firebaseAuth = firebaseApp.auth();
 let firebaseDb = firebaseApp.database();
 let pGoogle = new firebase.auth.GoogleAuthProvider();
+let getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = firebaseAuth.onAuthStateChanged(user => {
+      unsubscribe();
+      resolve(user);
+    }, reject);
+  });
+}
 
-export { firebaseAuth, firebaseDb, pGoogle };
+export { firebaseAuth, firebaseDb, pGoogle, getCurrentUser };
