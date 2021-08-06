@@ -9,6 +9,7 @@ import "firebase/analytics";
 // Add the Firebase products that you want to use
 import "firebase/auth";
 import "firebase/database";
+import "firebase/storage";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 var firebaseConfig = {
@@ -32,5 +33,12 @@ let getCurrentUser = () => {
     }, reject);
   });
 }
+let storageRef = firebase.storage().ref();
 
-export { firebaseAuth, firebaseDb, pGoogle, getCurrentUser };
+export {
+  firebaseAuth,
+  firebaseDb,
+  pGoogle,
+  getCurrentUser,
+  storageRef
+};
