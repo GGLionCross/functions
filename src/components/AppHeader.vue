@@ -15,7 +15,7 @@
       </q-toolbar-title>
       
       <div v-if="isUserLoggedIn" class="row items-center q-gutter-x-sm">
-        <div class="text-h6">GGLionCross</div>
+        <div class="text-h6">{{ userEmail }}</div>
         <q-btn
           icon="logout"
           dense
@@ -59,6 +59,8 @@ export default defineComponent({
 
     const store = useStore();
     const isUserLoggedIn = computed(() => store.getters.isUserLoggedIn);
+    const userEmail = computed(() => store.getters.getCurrentUser.email);
+
     function logout() {
       store.dispatch("userLogout");
     }
@@ -68,6 +70,7 @@ export default defineComponent({
       goBack,
       toggleDrawer,
       isUserLoggedIn,
+      userEmail,
       logout
     }
   }

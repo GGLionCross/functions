@@ -1,5 +1,5 @@
 import { firebaseAuth, firebaseDb, pGoogle } from "src/boot/firebase";
-import { Notify } from "quasar";
+// import { Notify } from "quasar";
 
 export async function handleAuthStateChanged({ commit, dispatch }) {
   // For custom cards, idea:
@@ -18,21 +18,31 @@ export async function handleAuthStateChanged({ commit, dispatch }) {
         });
       });
     } else {
-      // console.error("User is logged out");
       commit("setCurrentUser", {});
     }
   });
 }
-export function userLogin({}, payload) {
+export function userLogin({}) {
   firebaseAuth.signInWithPopup(pGoogle)
     .then((result) => {
-
+      // If userId is not in RDB, add to RDB
+      const userId = firebaseAuth.currentUser.uid;
+      firebaseDb.ref("users/" + userId).once("value", (snapshot) => {
+        let userDetails = snapshot.val();
+        if (!userDetails) {
+          let email = result.additionalUserInfo.profile.email;
+          firebaseDb.ref("users/" + userId).set({
+            email
+          });
+        }
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+      // Display the error to the user
+      // let notifyObj = { type: "negative", message: error.message }
+      // Notify.create(notifyObj);
     });
-    // .catch((error) => {
-    //   console.error(error);
-    //   let notifyObj = { type: "negative", message: error.message }
-    //   Notify.create(notifyObj);
-    // });
 }
 export function userLogout({}, payload) {
   firebaseAuth.signOut();
