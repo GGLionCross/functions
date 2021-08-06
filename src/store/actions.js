@@ -1,4 +1,4 @@
-import { firebaseAuth, firebaseDb, pGoogle } from "src/boot/firebase";
+import { firebaseAuth, firebaseDb, pGoogle, storageRef } from "src/boot/firebase";
 // import { Notify } from "quasar";
 
 export async function handleAuthStateChanged({ commit, dispatch }) {
@@ -22,6 +22,23 @@ export async function handleAuthStateChanged({ commit, dispatch }) {
     }
   });
 }
+export function storageUpload({}, payload) {
+  // payload : Object {
+  //   path : String // path in Storage
+  //   file : Object // file to upload
+  // }
+  let ref = storageRef.child(payload.path);
+  if ([File, Blob].includes(payload.file.constructor)) {
+    // If payload is an object of type File or Blob
+    ref.put(payload.file)
+      .then(snapshot => {
+        // console.error("Uploaded a File/Blob");
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+}
 export function userLogin({}) {
   firebaseAuth.signInWithPopup(pGoogle)
     .then((result) => {
@@ -37,7 +54,7 @@ export function userLogin({}) {
         }
       });
     })
-    .catch((error) => {
+    .catch(error => {
       console.error(error);
       // Display the error to the user
       // let notifyObj = { type: "negative", message: error.message }
