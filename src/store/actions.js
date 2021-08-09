@@ -22,6 +22,28 @@ export async function handleAuthStateChanged({ commit, dispatch }) {
     }
   });
 }
+export function retrieveHostedImages({ commit }) {
+  commit("setHostedImages", {});
+  const userId = firebaseAuth.currentUser.uid;
+  const path = `image-hosting/${userId}`;
+  const ref = storageRef.child(path);
+  let images = {};
+  ref.listAll()
+    .then(result => {
+      for (let i = 0; i < result.items.length; i++) {
+        result.items[i].getDownloadURL().then(url => {
+          images[i] = {
+            name: result.items[i].name,
+            url
+          }
+        });
+      }
+      commit("setHostedImages", images);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+}
 export function storageUpload({}, payload) {
   // payload : Object {
   //   path : String // path in Storage

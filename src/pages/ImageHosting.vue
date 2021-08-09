@@ -25,7 +25,7 @@
 
 <script>
 import ImagesViewer from "components/ImageHosting/ImagesViewer.vue";
-import { defineComponent, ref } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 import { useStore } from "vuex";
 
 export default defineComponent({
@@ -33,6 +33,8 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const images = ref(null);
+
+    onMounted(() => store.dispatch("retrieveHostedImages"));
 
     function upload() {
       let userId = store.getters.getCurrentUser.userId;
@@ -43,6 +45,7 @@ export default defineComponent({
         });
       }
     }
+
     return {
       images,
       upload
